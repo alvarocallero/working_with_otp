@@ -1,21 +1,7 @@
 # CuriosumMeetup
 
-**TODO: Add description**
-
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `curiosum_meetup` to your list of dependencies in `mix.exs`:
+This project contains examples of how we can use Agent, Task, and GenServer to build scalable applications in Elixir.
 
-```elixir
-def deps do
-  [
-    {:curiosum_meetup, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/curiosum_meetup>.
 
