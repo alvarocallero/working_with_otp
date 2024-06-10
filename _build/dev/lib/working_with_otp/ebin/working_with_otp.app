@@ -1,0 +1,13 @@
+{application,working_with_otp,
+             [{optional_applications,[]},
+              {applications,[kernel,stdlib,elixir,logger]},
+              {description,"working_with_otp"},
+              {modules,['Elixir.WorkingWithOtp.Agent.CurrenciesStore',
+                        'Elixir.WorkingWithOtp.Application',
+                        'Elixir.WorkingWithOtp.GenServer.CurrenciesStore',
+                        'Elixir.WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization',
+                        'Elixir.WorkingWithOtp.Task.ConcurrentCode',
+                        'Elixir.WorkingWithOtp.Task.CurrenciesFiller']},
+              {registered,[]},
+              {vsn,"0.1.0"},
+              {mod,{'Elixir.WorkingWithOtp.Application',[]}}]}.

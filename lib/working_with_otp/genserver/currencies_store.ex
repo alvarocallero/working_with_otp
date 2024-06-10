@@ -1,13 +1,13 @@
-defmodule CuriosumMeetup.GenServer.CurrenciesStoreWithPostInitialization do
+defmodule WorkingWithOtp.GenServer.CurrenciesStore do
   @moduledoc false
 
   use GenServer
 
   require Logger
 
-  @default_name CuriosumMeetup.GenServer.CurrenciesStoreWithPostInitialization
+  @default_name WorkingWithOtp.GenServer.CurrenciesStore
 
-  #API public functions
+  # API public functions
   def start_link(opts \\ []) do
     inital_state = []
     opts = Keyword.put_new(opts, :name, @default_name)
@@ -15,7 +15,7 @@ defmodule CuriosumMeetup.GenServer.CurrenciesStoreWithPostInitialization do
   end
 
   def init(state) do
-    {:ok, state, {:continue, :make_api_call}}
+    {:ok, state}
   end
 
   def add_element(name \\ @default_name, message) do
@@ -26,9 +26,9 @@ defmodule CuriosumMeetup.GenServer.CurrenciesStoreWithPostInitialization do
     GenServer.call(name, :get_elements)
   end
 
-  #Server
-  def handle_cast({:add_element, message}, state) do
-    state = [message | state]
+  # Server
+  def handle_cast({:add_element, _message}, _state) do
+    state = heavy_operation()
     {:noreply, state}
   end
 
@@ -36,15 +36,8 @@ defmodule CuriosumMeetup.GenServer.CurrenciesStoreWithPostInitialization do
     {:reply, state, state}
   end
 
-  def handle_continue(:make_api_call, state) do
-    Logger.info("handle_continue make_api_call")
-    {:noreply, state}
-  end
-
   def heavy_operation do
-    Logger.info("Doing heavy operation")
     Process.sleep(4_000)
     ["UYU", "ARS", "USD"]
   end
-
 end

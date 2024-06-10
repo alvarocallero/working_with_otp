@@ -1,4 +1,4 @@
-defmodule CuriosumMeetup.Application do
+defmodule WorkingWithOtp.Application do
   @moduledoc false
 
   use Application
@@ -6,9 +6,10 @@ defmodule CuriosumMeetup.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      WorkingWithOtp.Agent.CurrenciesStore
     ]
 
-    opts = [strategy: :one_for_one, name: CuriosumMeetup.Supervisor]
+    opts = [strategy: :one_for_one, name: WorkingWithOtp.Supervisor]
     Supervisor.start_link(children, opts)
   end
 end
