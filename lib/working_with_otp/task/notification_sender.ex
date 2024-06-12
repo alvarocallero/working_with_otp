@@ -1,4 +1,4 @@
-defmodule WorkingWithOtp.Task.ConcurrentCode do
+defmodule WorkingWithOtp.Task.NotificationSender do
   @moduledoc """
   This module demonstrates concurrent task execution in Elixir using the `Task` module.
 
@@ -7,7 +7,7 @@ defmodule WorkingWithOtp.Task.ConcurrentCode do
 
   ## Example Usage
 
-      iex> WorkingWithOtp.Task.ConcurrentCode.send_notifications()
+      iex> WorkingWithOtp.Task.NotificationSender.send_notifications()
       :ok
       # Logs will show email sending tasks running concurrently with different PIDs
   """

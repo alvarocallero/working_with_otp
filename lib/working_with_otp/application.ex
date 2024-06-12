@@ -6,7 +6,11 @@ defmodule WorkingWithOtp.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      WorkingWithOtp.Agent.CurrenciesStore
+      # WorkingWithOtp.Agent.CurrenciesStore
+      # WorkingWithOtp.Task.CurrenciesFiller,
+      # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization
+      # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreSteps
+      # WorkingWithOtp.GenServer.CurrenciesStore
     ]
 
     opts = [strategy: :one_for_one, name: WorkingWithOtp.Supervisor]

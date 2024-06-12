@@ -5,6 +5,5 @@ This project showcases the practical use of <span style="color:skyblue">Agent</s
 The project aims to provide a clear understanding of these essential Elixir concepts and how they can be applied to real-world scenarios.
 
 <img src="https://icon.icepanel.io/Technology/svg/Elixir.svg" alt="Agent Icon" width="20"/>
-<img src="https://icon.icepanel.io/Technology/svg/Elixir.svg" alt="Agent Icon" width="20"/>
 
 

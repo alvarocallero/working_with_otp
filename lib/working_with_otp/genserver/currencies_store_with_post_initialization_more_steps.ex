@@ -1,4 +1,4 @@
-defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
+defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreSteps do
   @moduledoc false
 
   use GenServer
@@ -13,7 +13,7 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
   end
 
   def init(state) do
-    {:ok, state, {:continue, :make_api_call}}
+    {:ok, state, {:continue, :step_number_1}}
   end
 
   def add_element(message) do
@@ -34,11 +34,25 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
     {:reply, state, state}
   end
 
-  def handle_continue(:make_api_call, state) do
-    Logger.info("handle_continue - make_api_call")
-    heavy_operation()
+  def handle_continue(:step_number_1, state) do
+    Logger.info("handle_continue - executing step_number_1")
+    new_state = state ++ ["USD", "EUR", "CAD"]
+    {:noreply, new_state, {:continue, :step_number_2}}
+  end
 
-    {:noreply, state}
+  def handle_continue(:step_number_2, state) do
+    Logger.info("handle_continue - executing step_number_2")
+    new_state = state ++ ["UYU", "ARS", "BRL"]
+
+    {:noreply, new_state, {:continue, :step_number_3}}
+  end
+
+  def handle_continue(:step_number_3, state) do
+    Logger.info("handle_continue - executing step_number_3")
+
+    final_state = state ++ ["NZD", "BRL", "JPY"]
+
+    {:noreply, final_state}
   end
 
   def heavy_operation do
