@@ -9,15 +9,11 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreStep
 
   require Logger
 
-  # API public functions
+  # Client | Public API functions
   def start_link(opts \\ []) do
     inital_state = []
     opts = Keyword.put_new(opts, :name, __MODULE__)
     GenServer.start_link(__MODULE__, inital_state, opts)
-  end
-
-  def init(state) do
-    {:ok, state, {:continue, :step_number_1}}
   end
 
   def add_element(message) do
@@ -28,7 +24,11 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreStep
     GenServer.call(__MODULE__, :get_elements)
   end
 
-  # Server
+  # Server | Internal callbacks functions
+  def init(state) do
+    {:ok, state, {:continue, :step_number_1}}
+  end
+
   def handle_cast({:add_element, message}, state) do
     state = [message | state]
     {:noreply, state}
@@ -47,7 +47,7 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreStep
   def handle_continue(:step_number_2, state) do
     Logger.info("handle_continue - executing step_number_2")
     new_state = state ++ ["UYU", "ARS", "BRL"]
-
+    heavy_operation()
     {:noreply, new_state, {:continue, :step_number_3}}
   end
 

@@ -9,15 +9,11 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
 
   require Logger
 
-  # API public functions
+  # Client | Public API functions
   def start_link(opts \\ []) do
     inital_state = []
     opts = Keyword.put_new(opts, :name, __MODULE__)
     GenServer.start_link(__MODULE__, inital_state, opts)
-  end
-
-  def init(state) do
-    {:ok, state}
   end
 
   def add_element(message) do
@@ -28,7 +24,11 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
     GenServer.call(__MODULE__, :get_elements)
   end
 
-  # Server
+  # Server | Internal callbacks functions
+  def init(state) do
+    {:ok, state}
+  end
+
   def handle_cast({:add_element, _message}, _state) do
     state = heavy_operation()
     {:noreply, state}
