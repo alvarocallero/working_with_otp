@@ -1,6 +1,10 @@
 defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreSteps do
-  @moduledoc false
-
+  @moduledoc """
+  A GenServer module for storing the currencies supported by the app.
+  This module provides functions to start the GenServer, add a currency, and retrieve all the currencies from the state.
+  It leverages the `handle_continue` callback to perform a series of operations immediately after the server has been initialized,
+  ensuring that initialization proceeds in several defined steps.
+  """
   use GenServer
 
   require Logger

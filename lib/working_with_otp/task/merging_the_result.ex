@@ -1,8 +1,8 @@
 defmodule WorkingWithOtp.Task.MergingTheResult do
   @moduledoc """
-  This module handles fetching currency data from various sources concurrently,
-  merges the results, and stores them in an Agent.
-  It demonstrates the use of asynchronous tasks to retrieve data from different sources, and processes this data efficiently.
+  This module handles fetching currency data from various sources concurrently, merges the results, and stores them in an Agent.
+  It demonstrates the use of asynchronous tasks to retrieve data from different sources, and processes this data efficiently, speeding up multiple
+  long synchronous functions by 3x.
   """
   require Logger
 
@@ -12,12 +12,21 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     tasks = [
       Task.async(fn -> get_currencies_from_database() end),
       Task.async(fn -> get_currencies_reading_file_on_disk() end),
-      Task.async(fn -> get_currencies_from_api_call() end)
+      Task.async(fn -> get_currencies_from_external_api_call() end)
     ]
 
     tasks
     |> Task.await_many()
     |> merge_currencies()
+    |> store_currencies_in_agent()
+  end
+
+  def fetch_currencies_with_bad_design() do
+    currencies_1 = get_currencies_from_database()
+    currencies_2 = get_currencies_reading_file_on_disk()
+    currencies_3 = get_currencies_from_external_api_call()
+
+    (currencies_1 ++ currencies_2 ++ currencies_3)
     |> store_currencies_in_agent()
   end
 
@@ -27,16 +36,19 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
   end
 
   defp get_currencies_from_database() do
+    Logger.info("Fetching currencies from database")
     Process.sleep(3_000)
     ["USD", "EUR", "CAD"]
   end
 
   defp get_currencies_reading_file_on_disk() do
+    Logger.info("Fetching currencies from disk")
     Process.sleep(3_000)
     ["UYU", "ARS", "BRL"]
   end
 
-  defp get_currencies_from_api_call() do
+  defp get_currencies_from_external_api_call() do
+    Logger.info("Fetching currencies from external API call")
     Process.sleep(3_000)
     ["NZD", "BRL", "JPY"]
   end

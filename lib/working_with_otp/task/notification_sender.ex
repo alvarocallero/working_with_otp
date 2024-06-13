@@ -4,12 +4,6 @@ defmodule WorkingWithOtp.Task.NotificationSender do
 
   The `send_notifications/0` function sends email notifications concurrently to a list of predefined email addresses.
   Each email is sent in its own separate process, showcasing Elixir's concurrency capabilities.
-
-  ## Example Usage
-
-      iex> WorkingWithOtp.Task.NotificationSender.send_notifications()
-      :ok
-      # Logs will show email sending tasks running concurrently with different PIDs
   """
   require Logger
 

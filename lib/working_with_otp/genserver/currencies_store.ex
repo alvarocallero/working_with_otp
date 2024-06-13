@@ -1,29 +1,31 @@
 defmodule WorkingWithOtp.GenServer.CurrenciesStore do
-  @moduledoc false
+  @moduledoc """
+  A GenServer module for storing the currencies supported by the app.
+  This module provides functions to start the GenServer, add a currency, and retrieve all the currencies from the state.
+  It demonstrates basic GenServer functionality, including asynchronous casting and synchronous calling.
+  """
 
   use GenServer
 
   require Logger
 
-  @default_name WorkingWithOtp.GenServer.CurrenciesStore
-
   # API public functions
   def start_link(opts \\ []) do
     inital_state = []
-    opts = Keyword.put_new(opts, :name, @default_name)
-    GenServer.start_link(@default_name, inital_state, opts)
+    opts = Keyword.put_new(opts, :name, __MODULE__)
+    GenServer.start_link(__MODULE__, inital_state, opts)
   end
 
   def init(state) do
     {:ok, state}
   end
 
-  def add_element(name \\ @default_name, message) do
-    GenServer.cast(name, {:add_element, message})
+  def add_element(message) do
+    GenServer.cast(__MODULE__, {:add_element, message})
   end
 
-  def get_elements(name \\ @default_name) do
-    GenServer.call(name, :get_elements)
+  def get_elements() do
+    GenServer.call(__MODULE__, :get_elements)
   end
 
   # Server
