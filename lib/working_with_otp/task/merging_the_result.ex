@@ -36,19 +36,19 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
   end
 
   defp get_currencies_from_database() do
-    Logger.info("Fetching currencies from database")
+    Logger.info("Fetching currencies from database | #{inspect(self())}")
     Process.sleep(3_000)
     ["USD", "EUR", "CAD"]
   end
 
   defp get_currencies_reading_file_on_disk() do
-    Logger.info("Fetching currencies from disk")
+    Logger.info("Fetching currencies from disk | #{inspect(self())}")
     Process.sleep(3_000)
     ["UYU", "ARS", "BRL"]
   end
 
   defp get_currencies_from_external_api_call() do
-    Logger.info("Fetching currencies from external API call")
+    Logger.info("Fetching currencies from external API call | #{inspect(self())}")
     Process.sleep(3_000)
     ["NZD", "BRL", "JPY"]
   end

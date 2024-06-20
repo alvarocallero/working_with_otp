@@ -29,9 +29,9 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
     {:ok, state}
   end
 
-  def handle_cast({:add_element, _message}, _state) do
-    state = heavy_operation()
-    {:noreply, state}
+  def handle_cast({:add_element, element}, state) do
+    new_state = [state | element]
+    {:noreply, new_state}
   end
 
   def handle_call(:get_elements, _from_pid, state) do
