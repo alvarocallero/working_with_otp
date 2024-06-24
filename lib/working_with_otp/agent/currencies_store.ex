@@ -24,8 +24,8 @@ defmodule WorkingWithOtp.Agent.CurrenciesStore do
     Agent.get(__MODULE__, fn state -> state end)
   end
 
-  def do_something_expensive(state) do
+  def do_something_expensive() do
     Process.sleep(4000)
-    state ++ ["UYU", "USD", "EUR", "GBP", "ARS"]
+    ["UYU", "USD", "EUR", "GBP", "ARS"]
   end
 end
