@@ -60,9 +60,8 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreStep
   end
 
   def heavy_operation do
-    Logger.info("Doing heavy operation")
+    Logger.info("Doing heavy operation...")
     Process.sleep(4_000)
     Logger.info("Heavy operation finished!")
-    ["UYU", "ARS", "USD"]
   end
 end

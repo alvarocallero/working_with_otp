@@ -25,8 +25,6 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
     GenServer.call(__MODULE__, :get_elements)
   end
 
-
-
   # Server | Internal callbacks functions
   def init(state) do
     {:ok, state, {:continue, :make_api_call}}
@@ -42,16 +40,15 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
   end
 
   def handle_continue(:make_api_call, _state) do
-    Logger.info("handle_continue - make_api_call")
-    new_state = heavy_operation()
-
+    Logger.info("handle_continue - Make API call")
+    heavy_operation()
+    new_state = ["UYU", "USD", "CAD", "EUR", "MXN"]
     {:noreply, new_state}
   end
 
   def heavy_operation do
-    Logger.info("Doing heavy operation")
+    Logger.info("Doing heavy operation...")
     Process.sleep(4_000)
     Logger.info("Heavy operation finished!")
-    ["UYU", "ARS", "USD"]
   end
 end

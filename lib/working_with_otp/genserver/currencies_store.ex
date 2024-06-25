@@ -30,7 +30,7 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
   end
 
   def handle_cast({:add_element, element}, state) do
-    new_state = [state | element]
+    new_state = [element | state]
     {:noreply, new_state}
   end
 
@@ -39,7 +39,8 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
   end
 
   def heavy_operation do
+    Logger.info("Doing heavy operation...")
     Process.sleep(4_000)
-    ["UYU", "ARS", "USD"]
+    Logger.info("Heavy operation finished!")
   end
 end

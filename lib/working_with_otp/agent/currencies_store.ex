@@ -10,6 +10,8 @@ defmodule WorkingWithOtp.Agent.CurrenciesStore do
 
   use Agent
 
+  require Logger
+
   def start_link(_opts) do
     Agent.start_link(fn -> [] end, name: __MODULE__)
   end
@@ -24,8 +26,10 @@ defmodule WorkingWithOtp.Agent.CurrenciesStore do
     Agent.get(__MODULE__, fn state -> state end)
   end
 
-  def do_something_expensive() do
-    Process.sleep(4000)
+  def heavy_operation() do
+    Logger.info("Doing heavy operation...")
+    Process.sleep(4_000)
+    Logger.info("Heavy operation finished!")
     ["UYU", "USD", "EUR", "GBP", "ARS"]
   end
 end
