@@ -3,7 +3,7 @@ defmodule WorkingWithOtp.Task.NotificationSender do
   This module demonstrates concurrent task execution in Elixir using the `Task` module.
 
   The `send_notifications/0` function sends email notifications concurrently to a list of predefined email addresses.
-  Each email is sent in its own separate process, showcasing Elixir's concurrency capabilities.
+  Each email is sent separately, showcasing Elixir's concurrency capabilities.
   """
   require Logger
 

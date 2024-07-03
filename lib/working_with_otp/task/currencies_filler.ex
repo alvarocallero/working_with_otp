@@ -1,35 +1,27 @@
 defmodule WorkingWithOtp.Task.CurrenciesFiller do
   @moduledoc """
-  This module is responsible for fetching a list of currency codes from a database (simulate) and storing them in an Agent.
-  It uses the `Task` behaviour to run asynchronously and logs its operations.
-  The goal of this Task is to be executed at the application startup to backfill the currencies in the Agent state.
+  This module is responsible for fetching a list of currency codes from a database (simulated) and storing them in a cache using ConCache.
+  It uses the `Task` module to run asynchronously and logs its operations.
+  The goal of this Task is to be executed at the application startup or manually to backfill the currencies in a cache.
   """
 
   use Task
 
   require Logger
 
-  alias WorkingWithOtp.Agent.CurrenciesStore
+  alias WorkingWithOtp.Cache.CacheManager
 
-  def start_link(arg) do
-    Task.start_link(__MODULE__, :run, [arg])
+  def start_link(args \\ []) do
+    Task.start_link(__MODULE__, :run, args)
   end
 
-  def run(_arg) do
-    currencies = get_currencies_from_database()
-    store_currencies_in_agent(currencies)
+  def run() do
+    currencies_lst = get_currencies_from_database()
+    CacheManager.insert_entry("currencies", currencies_lst)
   end
 
   defp get_currencies_from_database() do
-    Logger.info("Getting currencies from database")
-    ["UYU", "USD", "CAD", "EUR", "MXN"]
-  end
-
-  defp store_currencies_in_agent(currencies) do
-    Logger.info("Storing currencies in agent")
-
-    Enum.each(currencies, fn currency ->
-      CurrenciesStore.add_element(currency)
-    end)
+    Logger.info("Getting currencies from database...")
+    ["UYU", "USD", "CAD"]
   end
 end

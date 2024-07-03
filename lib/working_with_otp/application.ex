@@ -3,18 +3,40 @@ defmodule WorkingWithOtp.Application do
 
   use Application
 
+  # @topologies [
+  #   nodes: [
+  #     strategy: Cluster.Strategy.Epmd,
+  #     config: [
+  #       hosts: [
+  #         :node1@localhost,
+  #         :node2@localhost
+  #       ]
+  #     ]
+  #   ]
+  # ]
+
+  def application do
+    [applications: [:con_cache]]
+  end
+
   @impl true
   def start(_type, _args) do
     children = [
-      #Agent
-      WorkingWithOtp.Agent.CurrenciesStore
+      # {Cluster.Supervisor, [@topologies, [name: WorkingWithOtp.ClusterSupervisor]]},
+      {ConCache,
+       [
+         name: :currencies_cache,
+         ttl_check_interval: false
+       ]},
+      # Agent
+      WorkingWithOtp.Agent.CurrenciesStore,
 
-      #Task
+      # Task
       # WorkingWithOtp.Task.CurrenciesFiller
 
-      #GenServer
-      # WorkingWithOtp.GenServer.CurrenciesStore,
-      # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization,
+      # GenServer
+      # WorkingWithOtp.GenServer.CurrenciesStore
+      # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization
       # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreSteps
     ]
 

@@ -1,12 +1,12 @@
 defmodule WorkingWithOtp.Task.MergingTheResult do
   @moduledoc """
-  This module handles fetching currency data from various sources concurrently, merges the results, and stores them in an Agent.
-  It demonstrates the use of asynchronous tasks to retrieve data from different sources, and processes this data efficiently, speeding up multiple
+  This module handles fetching currency data from various sources concurrently, merges the results, and saves the response in cache.
+  It demonstrates the use of asynchronous tasks to retrieve data from different sources and process this data efficiently, speeding up multiple
   long synchronous functions by 3x.
   """
   require Logger
 
-  alias WorkingWithOtp.Agent.CurrenciesStore
+  alias WorkingWithOtp.Cache.CacheManager
 
   def fetch_currencies() do
     tasks = [
@@ -18,7 +18,7 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     tasks
     |> Task.await_many()
     |> merge_currencies()
-    |> store_currencies_in_agent()
+    |> store_currencies_in_cache()
   end
 
   def fetch_currencies_with_bad_design() do
@@ -27,7 +27,7 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     currencies_3 = get_currencies_from_external_api_call()
 
     (currencies_1 ++ currencies_2 ++ currencies_3)
-    |> store_currencies_in_agent()
+    |> store_currencies_in_cache()
   end
 
   defp merge_currencies(currencies_lists) do
@@ -53,8 +53,7 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     ["NZD", "BRL", "JPY"]
   end
 
-  defp store_currencies_in_agent(currencies) do
-    Logger.info("Storing currencies in Agent")
-    Enum.each(currencies, &CurrenciesStore.add_element/1)
+  defp store_currencies_in_cache(currencies) do
+    CacheManager.insert_entry("currencies", currencies)
   end
 end

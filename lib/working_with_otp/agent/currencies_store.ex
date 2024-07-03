@@ -7,7 +7,6 @@ defmodule WorkingWithOtp.Agent.CurrenciesStore do
   operation that simulates processing and extends the list with predefined
   currency codes.
   """
-
   use Agent
 
   require Logger
