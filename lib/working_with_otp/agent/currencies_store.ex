@@ -29,6 +29,6 @@ defmodule WorkingWithOtp.Agent.CurrenciesStore do
     Logger.info("Doing heavy operation...")
     Process.sleep(4_000)
     Logger.info("Heavy operation finished!")
-    ["UYU", "USD", "EUR", "GBP", "ARS"]
+    ["UYU", "USD", "EUR"]
   end
 end

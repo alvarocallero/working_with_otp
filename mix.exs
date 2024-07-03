@@ -20,7 +20,6 @@ defmodule WorkingWithOtp.MixProject do
 
   defp deps do
     [
-      {:libcluster, "~> 3.3"},
       {:con_cache, "~> 1.1"}
     ]
   end
