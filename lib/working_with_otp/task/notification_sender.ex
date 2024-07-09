@@ -11,7 +11,7 @@ defmodule WorkingWithOtp.Task.NotificationSender do
 
   def send_notifications() do
     Enum.each(@emails, fn email ->
-      Task.start(fn ->
+      Task.Supervisor.start_child(TaskSupervisor, fn ->
         send_email(email)
       end)
     end)

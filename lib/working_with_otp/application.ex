@@ -15,13 +15,14 @@ defmodule WorkingWithOtp.Application do
          name: :currencies_cache,
          ttl_check_interval: false
        ]},
-      # Agent
-      WorkingWithOtp.Agent.CurrenciesStore
+      # Agent ---------------------------------------------------------------
+      # WorkingWithOtp.Agent.CurrenciesStore
 
-      # Task
+      # Task ---------------------------------------------------------------
       # WorkingWithOtp.Task.CurrenciesFiller
+      # {Task.Supervisor, name: TaskSupervisor}
 
-      # GenServer
+      # GenServer ---------------------------------------------------------------
       # WorkingWithOtp.GenServer.CurrenciesStore
       # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization
       # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreSteps

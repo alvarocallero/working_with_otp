@@ -10,13 +10,14 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
 
   def fetch_currencies() do
     tasks = [
-      Task.async(fn -> get_currencies_from_database() end),
-      Task.async(fn -> get_currencies_reading_file_on_disk() end),
-      Task.async(fn -> get_currencies_from_external_api_call() end)
+      fn -> get_currencies_from_database() end,
+      fn -> get_currencies_reading_file_on_disk() end,
+      fn -> get_currencies_from_external_api_call() end
     ]
 
     tasks
-    |> Task.await_many()
+    |> Task.async_stream(fn task -> task.() end)
+    |> Enum.to_list()
     |> merge_currencies()
     |> store_currencies_in_cache()
   end
