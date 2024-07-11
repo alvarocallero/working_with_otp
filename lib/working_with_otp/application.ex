@@ -19,7 +19,7 @@ defmodule WorkingWithOtp.Application do
       # WorkingWithOtp.Agent.CurrenciesStore
 
       # Task ---------------------------------------------------------------
-      # WorkingWithOtp.Task.CurrenciesFiller
+      # WorkingWithOtp.Task.CurrenciesFiller,
       # {Task.Supervisor, name: TaskSupervisor}
 
       # GenServer ---------------------------------------------------------------
