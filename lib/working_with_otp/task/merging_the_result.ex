@@ -22,7 +22,7 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     |> merge_currencies()
     |> store_currencies_in_cache()
   end
-#
+
   def fetch_currencies_with_bad_design() do
     currencies_1 = get_currencies_from_database()
     currencies_2 = get_currencies_reading_file_on_disk()
