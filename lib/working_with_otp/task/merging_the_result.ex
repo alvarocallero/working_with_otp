@@ -17,7 +17,6 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
 
     tasks
     |> Task.async_stream(fn task -> task.() end)
-    # |> IO.inspect(label: "stream")
     |> Enum.to_list()
     |> Enum.map(fn {:ok, currency} -> currency end)
     |> merge_currencies()
