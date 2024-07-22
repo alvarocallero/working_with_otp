@@ -10,22 +10,24 @@ defmodule WorkingWithOtp.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      {ConCache,
-       [
-         name: :currencies_cache,
-         ttl_check_interval: false
-       ]},
-      # Agent ---------------------------------------------------------------
+      # Cache -------------------------------------------------------------
+      # {ConCache,
+      #  [
+      #    name: :currencies_cache,
+      #    ttl_check_interval: false
+      #  ]},
+
+      # Agent --------------------------------------------------------------
       # WorkingWithOtp.Agent.CurrenciesStore
 
       # Task ---------------------------------------------------------------
       # WorkingWithOtp.Task.CurrenciesFiller,
-      # {Task.Supervisor, name: TaskSupervisor}
+      # {Task.Supervisor, name: TaskSupervisor},
 
-      # GenServer ---------------------------------------------------------------
+      # GenServer ----------------------------------------------------------
       # WorkingWithOtp.GenServer.CurrenciesStore
       # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization
-      # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitializationMoreSteps
+      # WorkingWithOtp.GenServer.PeriodicWorker
     ]
 
     opts = [strategy: :one_for_one, name: WorkingWithOtp.Supervisor]

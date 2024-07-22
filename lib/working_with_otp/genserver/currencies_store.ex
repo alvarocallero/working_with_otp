@@ -31,6 +31,7 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
 
   def handle_cast({:add_element, element}, state) do
     new_state = [element | state]
+
     {:noreply, new_state}
   end
 

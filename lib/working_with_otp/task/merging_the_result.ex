@@ -18,8 +18,8 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     tasks
     |> Task.async_stream(fn task -> task.() end)
     |> Enum.to_list()
-    |> Enum.map(fn {:ok, currency} -> currency end)
-    |> merge_currencies()
+    |> Enum.map(fn {:ok, currencies_list} -> currencies_list end)
+    |> List.flatten()
     |> store_currencies_in_cache()
   end
 
@@ -30,11 +30,6 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
 
     (currencies_1 ++ currencies_2 ++ currencies_3)
     |> store_currencies_in_cache()
-  end
-
-  defp merge_currencies(currencies_lists) do
-    Logger.info("Merging currencies")
-    List.flatten(currencies_lists)
   end
 
   defp get_currencies_from_database() do
