@@ -43,5 +43,6 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
     Logger.info("Doing heavy operation...")
     Process.sleep(4_000)
     Logger.info("Heavy operation finished!")
+    ["UYU", "USD", "EUR"]
   end
 end

@@ -41,8 +41,7 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
 
   def handle_continue(:make_api_call, _state) do
     Logger.info("handle_continue - Make API call")
-    heavy_operation()
-    new_state = ["UYU", "USD", "CAD", "EUR", "MXN"]
+    new_state = heavy_operation()
     {:noreply, new_state}
   end
 
@@ -50,5 +49,6 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
     Logger.info("Doing heavy operation...")
     Process.sleep(4_000)
     Logger.info("Heavy operation finished!")
+    ["UYU", "USD", "CAD", "EUR", "MXN"]
   end
 end
