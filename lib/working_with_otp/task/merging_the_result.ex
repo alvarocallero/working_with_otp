@@ -17,7 +17,6 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
 
     tasks
     |> Task.async_stream(fn task -> task.() end)
-    |> Enum.to_list()
     |> Enum.map(fn {:ok, currencies_list} -> currencies_list end)
     |> List.flatten()
     |> store_currencies_in_cache()
