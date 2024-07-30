@@ -6,7 +6,6 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
   """
   require Logger
 
-  alias WorkingWithOtp.Cache.CacheManager
 
   def fetch_currencies() do
     tasks = [
@@ -50,6 +49,6 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
   end
 
   defp store_currencies_in_cache(currencies) do
-    CacheManager.insert_entry("currencies", currencies)
+    Logger.info("Storing currencies in cache: #{inspect(currencies)}")
   end
 end
