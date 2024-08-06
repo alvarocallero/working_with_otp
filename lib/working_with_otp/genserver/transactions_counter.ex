@@ -30,8 +30,8 @@ defmodule WorkingWithOtp.GenServer.PeriodicWorker do
     GenServer.cast(__MODULE__, {:update_state, {success_txs, failed_txs}})
   end
 
-  def get_elements() do
-    GenServer.call(__MODULE__, :get_elements)
+  def get_state() do
+    GenServer.call(__MODULE__, :get_state)
   end
 
   # Server | Internal callbacks functions
@@ -60,7 +60,7 @@ defmodule WorkingWithOtp.GenServer.PeriodicWorker do
     {:noreply, new_state}
   end
 
-  def handle_call(:get_elements, _from_pid, state) do
+  def handle_call(:get_state, _from_pid, state) do
     {:reply, state, state}
   end
 

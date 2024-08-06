@@ -18,6 +18,6 @@ defmodule WorkingWithOtp.Task.NotificationSender do
   end
 
   defp send_email(email) do
-    Logger.info("Email to #{email} sent | #{inspect(self())}")
+    Logger.info("Sending email to #{email} sent | #{inspect(self())}")
   end
 end

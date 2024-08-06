@@ -3,9 +3,13 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
   This module handles fetching currency data from various sources concurrently, merges the results, and saves the response in cache.
   It demonstrates the use of asynchronous tasks to retrieve data from different sources and process this data efficiently, speeding up multiple
   long synchronous functions by 3x.
+
+  This is the output of the logic in the pipes section:
+    |> Task.async_stream(fn task -> task.() end) ==> Function<3.112246596/2 in Task.build_stream/3>
+    |> Enum.map(fn {:ok, currencies_list} -> currencies_list end) ==> [["USD", "EUR", "CAD"], ["UYU", "ARS", "BRL"], ["NZD", "BRL", "JPY"]]
+    |> List.flatten() ==> ["USD", "EUR", "CAD", "UYU", "ARS", "BRL", "NZD", "BRL", "JPY"]
   """
   require Logger
-
 
   def fetch_currencies() do
     tasks = [
