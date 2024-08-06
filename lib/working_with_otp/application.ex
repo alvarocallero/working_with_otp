@@ -11,14 +11,13 @@ defmodule WorkingWithOtp.Application do
   def start(_type, _args) do
     children = [
       # Agent --------------------------------------------------------------
-      # WorkingWithOtp.Agent.CurrenciesStore,
+      WorkingWithOtp.Agent.CurrenciesStore,
 
       # Task ---------------------------------------------------------------
-      # WorkingWithOtp.Task.CurrenciesFiller,
       {Task.Supervisor, name: TaskSupervisor},
 
       # GenServer ----------------------------------------------------------
-      # WorkingWithOtp.GenServer.CurrenciesStore
+      WorkingWithOtp.GenServer.CurrenciesStore
       # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization
       # WorkingWithOtp.GenServer.PeriodicWorker
     ]
