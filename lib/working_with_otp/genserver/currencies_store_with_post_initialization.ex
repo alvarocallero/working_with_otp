@@ -40,7 +40,7 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
   end
 
   def handle_continue(:make_api_call, _state) do
-    Logger.info("handle_continue - Make API call")
+    Logger.info("Executing the handle_continue, making API call...")
     new_state = heavy_operation()
     {:noreply, new_state}
   end
