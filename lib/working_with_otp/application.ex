@@ -3,10 +3,6 @@ defmodule WorkingWithOtp.Application do
 
   use Application
 
-  def application do
-    []
-  end
-
   @impl true
   def start(_type, _args) do
     children = [
