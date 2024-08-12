@@ -11,7 +11,7 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
   """
   require Logger
 
-  def fetch_currencies() do
+  def fetch_currencies_using_task() do
     tasks = [
       fn -> get_currencies_from_database() end,
       fn -> get_currencies_reading_file_on_disk() end,
@@ -25,7 +25,7 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     |> store_currencies_in_cache()
   end
 
-  def fetch_currencies_with_bad_design() do
+  def fetch_currencies_without_using_task() do
     currencies_1 = get_currencies_from_database()
     currencies_2 = get_currencies_reading_file_on_disk()
     currencies_3 = get_currencies_from_external_api_call()
@@ -42,7 +42,7 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
 
   defp get_currencies_reading_file_on_disk() do
     Logger.info("Fetching currencies from disk | #{inspect(self())}")
-    Process.sleep(3_000)
+    Process.sleep(4_000)
     ["UYU", "ARS", "BRL"]
   end
 
