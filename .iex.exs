@@ -8,7 +8,6 @@ defmodule IExHelpers do
     state = CurrenciesStore.get_elements()
     Logger.info("Doing heavy operation... | #{inspect(self())}")
 
-
     Task.start(fn ->
       Logger.info("Another process is modifying the state... | #{inspect(self())}")
       CurrenciesStore.add_element("USD")

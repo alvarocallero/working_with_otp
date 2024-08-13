@@ -21,13 +21,13 @@ defmodule WorkingWithOtp.GenServer.PeriodicWorker do
 
   # Client | Public API functions
   def start_link(opts \\ []) do
-    inital_state = %{success_txs: 0, failed_txs: 0}
+    inital_state = %{successful_txs: 0, failed_txs: 0}
     opts = Keyword.put_new(opts, :name, __MODULE__)
     GenServer.start_link(__MODULE__, inital_state, opts)
   end
 
-  def update_state(success_txs, failed_txs) do
-    GenServer.cast(__MODULE__, {:update_state, {success_txs, failed_txs}})
+  def update_state(successful_txs, failed_txs) do
+    GenServer.cast(__MODULE__, {:update_state, {successful_txs, failed_txs}})
   end
 
   def get_state() do
@@ -42,12 +42,12 @@ defmodule WorkingWithOtp.GenServer.PeriodicWorker do
   end
 
   def handle_info(:update_transactions_counter, state) do
-    Logger.info("Checking transactions...")
-    {new_success_txs, new_failed_txs} = get_finised_transactions()
+    Logger.info("Updating transactions counter...")
+    {new_successful_txs, new_failed_txs} = get_finised_transactions()
 
     new_state = %{
       state
-      | success_txs: state.success_txs + new_success_txs,
+      | successful_txs: state.successful_txs + new_successful_txs,
         failed_txs: state.failed_txs + new_failed_txs
     }
 
@@ -55,8 +55,8 @@ defmodule WorkingWithOtp.GenServer.PeriodicWorker do
     {:noreply, new_state}
   end
 
-  def handle_cast({:update_state, {success_txs, failed_txs}}, _state) do
-    new_state = %{success_txs: success_txs, failed_txs: failed_txs}
+  def handle_cast({:update_state, {successful_txs, failed_txs}}, _state) do
+    new_state = %{successful_txs: successful_txs, failed_txs: failed_txs}
     {:noreply, new_state}
   end
 
