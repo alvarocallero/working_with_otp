@@ -39,7 +39,7 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
     {:reply, state, state}
   end
 
-  def heavy_operation do
+  def heavy_operation() do
     Logger.info("Doing heavy operation...")
     Process.sleep(4_000)
     Logger.info("Heavy operation finished!")
