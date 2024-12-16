@@ -15,9 +15,9 @@ defmodule WorkingWithOtp.Agent.CurrenciesStore do
     Agent.start_link(fn -> [] end, name: __MODULE__)
   end
 
-  def add_element(message) do
+  def add_element(currency) do
     Agent.update(__MODULE__, fn state ->
-      [message | state]
+      [currency | state]
     end)
   end
 

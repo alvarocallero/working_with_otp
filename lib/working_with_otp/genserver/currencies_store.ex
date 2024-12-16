@@ -10,10 +10,9 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
   require Logger
 
   # Client | Public API functions
-  def start_link(opts \\ []) do
+  def start_link(_opts) do
     inital_state = []
-    opts = Keyword.put_new(opts, :name, __MODULE__)
-    GenServer.start_link(__MODULE__, inital_state, opts)
+    GenServer.start_link(__MODULE__, inital_state, name: __MODULE__)
   end
 
   def add_element(message) do
@@ -24,6 +23,10 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
     GenServer.call(__MODULE__, :get_elements)
   end
 
+  def save_to_file() do
+    GenServer.cast(__MODULE__, :save_to_file)
+  end
+
   # Server | Internal callbacks functions
   def init(state) do
     {:ok, state}
@@ -31,13 +34,19 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStore do
 
   def handle_cast({:add_element, element}, state) do
     new_state = [element | state]
-
     {:noreply, new_state}
+  end
+
+  def handle_cast(:save_to_file, state) do
+    File.write!("currencies_store.txt", Jason.encode!(state))
+    Logger.info("State saved to file!")
+    {:noreply, state}
   end
 
   def handle_call(:get_elements, _from_pid, state) do
     {:reply, state, state}
   end
+
 
   def heavy_operation() do
     Logger.info("Doing heavy operation...")

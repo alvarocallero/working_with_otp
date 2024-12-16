@@ -15,7 +15,6 @@ defmodule WorkingWithOtp.Application do
       # GenServer ----------------------------------------------------------
       WorkingWithOtp.GenServer.CurrenciesStore
       # WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization
-      # WorkingWithOtp.GenServer.PeriodicWorker
     ]
 
     opts = [strategy: :one_for_one, name: WorkingWithOtp.Supervisor]

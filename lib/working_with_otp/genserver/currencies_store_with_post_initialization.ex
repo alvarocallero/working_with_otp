@@ -46,7 +46,7 @@ defmodule WorkingWithOtp.GenServer.CurrenciesStoreWithPostInitialization do
   end
 
   def heavy_operation do
-    Logger.info("Doing heavy operation...")
+    Logger.info("Doing heavy operation on GenServer startup...")
     Process.sleep(4_000)
     Logger.info("Heavy operation finished!")
     ["UYU", "USD", "CAD", "EUR", "MXN"]

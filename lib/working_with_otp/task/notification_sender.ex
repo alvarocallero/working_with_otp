@@ -7,10 +7,9 @@ defmodule WorkingWithOtp.Task.NotificationSender do
   """
   require Logger
 
-  @emails ["fred@facebook.com", "rebeca@ford.com", "markus@fiat.com"]
-
   def send_notifications() do
-    Enum.each(@emails, fn email ->
+    list_of_emails = ["fred@facebook.com", "rebeca@ford.com", "markus@fiat.com"]
+    Enum.each(list_of_emails, fn email ->
       Task.Supervisor.start_child(TaskSupervisor, fn ->
         send_email(email)
       end)

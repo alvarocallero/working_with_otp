@@ -22,7 +22,6 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     |> Task.async_stream(fn task -> task.() end)
     |> Enum.map(fn {:ok, currencies_list} -> currencies_list end)
     |> List.flatten()
-    |> store_currencies_in_cache()
   end
 
   def fetch_currencies_without_using_task() do
@@ -31,7 +30,6 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     currencies_3 = get_currencies_from_external_api_call()
 
     (currencies_1 ++ currencies_2 ++ currencies_3)
-    |> store_currencies_in_cache()
   end
 
   defp get_currencies_from_database() do
@@ -51,8 +49,5 @@ defmodule WorkingWithOtp.Task.MergingTheResult do
     Process.sleep(3_000)
     ["NZD", "BRL", "JPY"]
   end
-
-  defp store_currencies_in_cache(currencies) do
-    Logger.info("Storing currencies in cache: #{inspect(currencies)}")
-  end
+  
 end
